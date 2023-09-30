@@ -34,7 +34,7 @@
             *=? makes it so after = or ! you can have one more equal after it or not so =, ==, !=, and ! are allowed
 
 
-#####&&|\|\||!   { printf("%-100s %-100s\n", yytext, "logical operator"); }
+##### &&|\|\||!   { printf("%-100s %-100s\n", yytext, "logical operator"); }
      *&&
             *matches &&
      *\|\|
@@ -43,15 +43,15 @@
             *matches !
 
 
-  ####[+\-/][*]{0,2} { printf("%-100s %-100s\n", yytext, "arithmetic operator"); }
+  #### [+\-/][*]{0,2} { printf("%-100s %-100s\n", yytext, "arithmetic operator"); }
     *[+\-/]
         *Matches `+`, `-`, or `/` characters.
     *[*]{0,2}
         *Matches `*` zero to two times.
 
-#####auto|bool|main|break|cout|endl|case|catch|char|class|const|constexpr|continue|decltype|default|delete|do|double|dynamic_cast|else|enum|explicit|export|extern|false|float|for|friend|goto|if|inline|int|long|mutable|namespace|new|noexcept|nullptr|operator|private|protected|public|register|reinterpret_cast|return|short|signed|sizeof|static|static_assert|static_cast|struct|switch|template|this|thread_local|throw|true|try|typedef|typeid|typename|union|unsigned|using|virtual|void|volatile|while { printf("%-100s %-100s\n", yytext, "keyword"); }
+##### auto|bool|main|break|cout|endl|case|catch|char|class|const|constexpr|continue|decltype|default|delete|do|double|dynamic_cast|else|enum|explicit|export|extern|false|float|for|friend|goto|if|inline|int|long|mutable|namespace|new|noexcept|nullptr|operator|private|protected|public|register|reinterpret_cast|return|short|signed|sizeof|static|static_assert|static_cast|struct|switch|template|this|thread_local|throw|true|try|typedef|typeid|typename|union|unsigned|using|virtual|void|volatile|while { printf("%-100s %-100s\n", yytext, "keyword"); }
 
-#####\"[^\"]*\"|'[^']*' { printf("%-100s %-100s\n", yytext, "string"); }
+##### \"[^\"]*\"|'[^']*' { printf("%-100s %-100s\n", yytext, "string"); }
     *\"
         *Matches the opening double quote `"`
     *[^\"]*
@@ -65,7 +65,7 @@
     *'
         *Matches the closing single quote `'`
 
-#####"//"([^\n])* { /* Ignore the comment */ }
+##### "//"([^\n])* { /* Ignore the comment */ }
     *"//"
         *Matches `//`, indicating the start of a single-line comment.
     *([^\n])*
@@ -73,7 +73,7 @@
     * { /* Ignore the comment */ }
         *A comment explaining that this rule is used to ignore single-line comments.
 
-#####"/*"([^*]|"*"+[^*/])*"*"+"/" { /* Ignore the multi-line comment */ }
+##### "/*"([^*]|"*"+[^*/])*"*"+"/" { /* Ignore the multi-line comment */ }
     *"/*"
         *Matches `/*`, indicating the start of a multi-line comment.
     *([^*]
@@ -88,34 +88,34 @@
         *Matches the closing `*/`, indicating the end of a multi-line comment.
 
 
-    #####[,;{}()"'\\]|<<|>> { printf("%-100s %-100s\n", yytext, "separator"); }
+##### [,;{}()"'\\]|<<|>> { printf("%-100s %-100s\n", yytext, "separator"); }
     *[,;{}()"'\\]
         *Matches various separator characters including `,`, `;`, `{`, `}`, `(`, `)`, `"`, `'`, `\`, `<<`, and `>>`.
     *<<|>>
         *Matches `<<` and `>>` separately.
 
-#####[+-]?[0-9]+\.[0-9]+ { printf("%-100s %-100s\n", yytext, "float"); }
+##### [+-]?[0-9]+\.[0-9]+ { printf("%-100s %-100s\n", yytext, "float"); }
     * [+-]?
         *Matches an optional plus (`+`) or minus (`-`) sign.
     *[0-9]+\.[0-9]+
         *Matches a floating-point number in the format of `[digits].[digits]`.
 
-#####[+-]?[0-9]+ { printf("%-100s %-100s\n", yytext, "int"); }
+##### [+-]?[0-9]+ { printf("%-100s %-100s\n", yytext, "int"); }
     *[+-]?
         *Matches an optional plus (`+`) or minus (`-`) sign.
     *[0-9]+
         *Matches an integer number consisting of one or more digits.
 
-#####[A-Za-z][A-Za-z0-9_]*|_[A-Za-z][A-Za-z0-9_]* { printf("%-100s %-100s\n", yytext, "identifier"); }
+##### [A-Za-z][A-Za-z0-9_]*|_[A-Za-z][A-Za-z0-9_]* { printf("%-100s %-100s\n", yytext, "identifier"); }
     *[A-Za-z][A-Za-z0-9_]*
         *Matches an identifier, which starts with an alphabetic character and can be followed by alphanumeric characters or underscores.
     *|_
         *Matches an underscore (`_`) followed by an alphabetic character, allowing identifiers like `_identifier`.
 
-#####[ \t\n]+   { /* Ignore spaces and tabs */ }
+##### [ \t\n]+   { /* Ignore spaces and tabs */ }
     *[ \t\n]+
         *Matches one or more spaces, tabs, or newline characters and ignores them.
 
-#####.     { printf("%-100s %-100s\n", yytext, "is not recognized"); }
+##### .     { printf("%-100s %-100s\n", yytext, "is not recognized"); }
     *.
         *Matches any character that hasn't been recognized by previous rules and labels it as "is not recognized."
